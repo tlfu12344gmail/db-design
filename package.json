@@ -1,0 +1,32 @@
+{
+  "name": "db-design",
+  "version": "1.0.0",
+  "private": true,
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "vite --port 2103",
+    "build": "vite build",
+    "preview": "vite preview",
+    "electron": "wait-on tcp:2103 && electron . --mode=development ",
+    "electron:serve": "concurrently -k \"npm run dev\" \"npm run electron\""
+  },
+  "dependencies": {
+    "@electron/remote": "^2.0.9",
+    "@element-plus/icons-vue": "^2.1.0",
+    "electron-store": "^8.1.0",
+    "element-plus": "^2.3.3",
+    "fabric": "^5.3.0",
+    "vue": "^3.2.47",
+    "vue-router": "^4.1.6"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "concurrently": "^8.0.1",
+    "electron": "^24.1.1",
+    "electron-reloader": "^1.2.3",
+    "unplugin-auto-import": "^0.15.2",
+    "unplugin-vue-components": "^0.24.1",
+    "vite": "^4.1.4",
+    "wait-on": "^7.0.1"
+  }
+}
