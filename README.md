@@ -45,3 +45,7 @@ vue3+electron搭建 https://www.jianshu.com/p/a9fbc1a95950
 
 1. cnpm install
 2. npm run electron:serve
+
+# 效果
+![main.png](./main.png)
+![table.png](./table.png)
