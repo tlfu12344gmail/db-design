@@ -27,14 +27,14 @@ import { ElMessage } from 'element-plus'
         <el-button type="primary" @click="changeDrawType('drawing')">drawing</el-button>
         <el-button type="primary" @click="changeDrawType('table')">Add Table</el-button>
         <el-button type="primary" @click="changeDrawType('text')">Add Text</el-button> -->
-        <!-- <el-button type="primary" @click="zoom(true)">zoom in</el-button>
-        <el-button type="primary" @click="zoom(false)">zomm out</el-button> -->
+       
         <!-- <el-button type="primary" @click="changeCursor('crosshair')">cursor</el-button>
         <el-button type="primary" @click="changeCursor('default')">default</el-button> -->
         <el-button type="primary" @click="exportImages('png')">export to png</el-button>
         <el-button type="primary" @click="exportSql()">export sql</el-button>
 
-       
+        <el-button type="primary" @click="zoom(true)">zoom in</el-button>
+        <el-button type="primary" @click="zoom(false)">zomm out</el-button>
 
       </div>
       <div ><el-input type="number" v-model="canvasWH.w"   @blur="cwInput"></el-input></div>
@@ -1062,39 +1062,41 @@ export default {
         factor = factor + 0.1;
       } else {
         factor = factor - 0.1;
-        if (factor <= 0) {
+        if (factor < 0.1) {
           factor = 0.1;
         }
       }
-      let cWidth = editorCanvas.width;
-      editorCanvas.setWidth(cWidth * factor);
-      editorCanvas.setHeight(cWidth * factor);
-      if (editorCanvas.backgroundImage) {
-        var bi = editorCanvas.backgroundImage;
-        bi.width = bi.width * factor;
-        bi.height = bi.height * factor;
-      }
-      var objects = editorCanvas.getObjects();
-      for (var i in objects) {
-        var scaleX = objects[i].scaleX;
-        var scaleY = objects[i].scaleY;
-        var left = objects[i].left;
-        var top = objects[i].top;
-
-        var tempScaleX = scaleX * factor;
-        var tempScaleY = scaleY * factor;
-        var tempLeft = left * factor;
-        var tempTop = top * factor;
-
-        objects[i].scaleX = tempScaleX;
-        objects[i].scaleY = tempScaleY;
-        objects[i].left = tempLeft;
-        objects[i].top = tempTop;
-
-        objects[i].setCoords();
-      }
+      editorCanvas.setZoom(factor);
       editorCanvas.renderAll();
-      editorCanvas.calcOffset();
+      // let cWidth = editorCanvas.width;
+      // editorCanvas.setWidth(cWidth * factor);
+      // editorCanvas.setHeight(cWidth * factor);
+      // if (editorCanvas.backgroundImage) {
+      //   var bi = editorCanvas.backgroundImage;
+      //   bi.width = bi.width * factor;
+      //   bi.height = bi.height * factor;
+      // }
+      // var objects = editorCanvas.getObjects();
+      // for (var i in objects) {
+      //   var scaleX = objects[i].scaleX;
+      //   var scaleY = objects[i].scaleY;
+      //   var left = objects[i].left;
+      //   var top = objects[i].top;
+
+      //   var tempScaleX = scaleX * factor;
+      //   var tempScaleY = scaleY * factor;
+      //   var tempLeft = left * factor;
+      //   var tempTop = top * factor;
+
+      //   objects[i].scaleX = tempScaleX;
+      //   objects[i].scaleY = tempScaleY;
+      //   objects[i].left = tempLeft;
+      //   objects[i].top = tempTop;
+
+      //   objects[i].setCoords();
+      // }
+      // editorCanvas.renderAll();
+      // editorCanvas.calcOffset();
     }
   },
 }
