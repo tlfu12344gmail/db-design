@@ -34,7 +34,7 @@ import { ElMessage } from 'element-plus'
         <el-button type="primary" @click="exportSql()">export sql</el-button>
 
         <el-button type="primary" @click="zoom(true)">zoom in</el-button>
-        <el-button type="primary" @click="zoom(false)">zomm out</el-button>
+        <el-button type="primary" @click="zoom(false)">zoom out</el-button>
 
       </div>
       <div ><el-input type="number" v-model="canvasWH.w"   @blur="cwInput"></el-input></div>
