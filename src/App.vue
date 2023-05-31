@@ -2,7 +2,8 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { fabric } from 'fabric';
 import { nextTick } from 'vue';
-import { ElMessage } from 'element-plus'
+import { ElMessage } from 'element-plus';
+import useClipboard from 'vue-clipboard3';
 
 
 
@@ -35,6 +36,8 @@ import { ElMessage } from 'element-plus'
 
         <el-button type="primary" @click="zoom(true)">zoom in</el-button>
         <el-button type="primary" @click="zoom(false)">zoom out</el-button>
+
+        <el-button type="primary" @click="copySelectSql(false)">copy selected sql</el-button>
 
       </div>
       <div ><el-input type="number" v-model="canvasWH.w"   @blur="cwInput"></el-input></div>
@@ -219,6 +222,8 @@ fabric.Object.prototype.transparentCorners = false;
 // });
 const Store = require('electron-store');
 
+const { toClipboard } = useClipboard();
+
 const store = new Store();
 console.log(store.path);
 const electron = require('electron');
@@ -350,6 +355,26 @@ export default {
       }).catch(err => {
         ElMessage.error("export failed")
       })
+
+    },
+    copySelectSql(){
+      let sql = "";
+      var tables  = editorCanvas.getActiveObjects();
+      if(tables.length>0){
+         for (let i = 0; i < tables.length; i++) {
+            if (tables[i].name == "table") {
+              sql = sql + tables[i].data.sql;
+            }
+          }
+      }
+      if(sql!=""){
+        try {
+         toClipboard(sql);
+        ElMessage.success('复制成功')
+      } catch (e) {
+        ElMessage.warning('您的浏览器不支持复制：', e)
+      }
+      }
 
     },
     exportSql() {

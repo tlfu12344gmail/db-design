@@ -17,6 +17,7 @@
     "element-plus": "^2.3.3",
     "fabric": "^5.3.0",
     "vue": "^3.2.47",
+    "vue-clipboard3": "^2.0.0",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
