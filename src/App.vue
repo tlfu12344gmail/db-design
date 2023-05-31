@@ -370,7 +370,7 @@ export default {
       if(sql!=""){
         try {
          toClipboard(sql);
-        ElMessage.success('复制成功')
+         ElMessage.success('copied')
       } catch (e) {
         ElMessage.warning('您的浏览器不支持复制：', e)
       }
