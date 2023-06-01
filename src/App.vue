@@ -38,6 +38,7 @@ import useClipboard from 'vue-clipboard3';
         <el-button type="primary" @click="zoom(false)">zoom out</el-button>
 
         <el-button type="primary" @click="copySelectSql(false)">copy selected sql</el-button>
+        <el-button type="primary" @click="deleteUndo()">delete undo</el-button>
 
       </div>
       <div ><el-input type="number" v-model="canvasWH.w"   @blur="cwInput"></el-input></div>
@@ -232,6 +233,7 @@ const fs = require('fs');
 
 const ipc = electron.ipcRenderer;
 let editorCanvas = null;
+let deleteArr=[];
 let factor = 1;
 let mouseTo = {};
 let mouseFrom = {};
@@ -301,6 +303,12 @@ export default {
 
   },
   methods: {
+    deleteUndo(){
+      if(deleteArr.length>0){
+          editorCanvas.add(deleteArr.pop());
+      }
+
+    },
     cwInput(e){
       const cw = Number(e.target.value);
       if(cw<800){
@@ -1101,6 +1109,7 @@ export default {
       if (e.keyCode == 8 || e.keyCode == 46) {
         const aObs = editorCanvas.getActiveObjects();
         if (aObs.length > 0) {
+          deleteArr = deleteArr.concat(aObs);
           editorCanvas.remove.apply(editorCanvas, aObs);
           editorCanvas.renderAll();
         }
