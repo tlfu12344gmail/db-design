@@ -606,6 +606,14 @@ export default {
     cancelClick() {
       this.drawer = false;
     },
+    buildNumberSpace(num){
+      let s="";
+      for(let i=0;i<num;i++){
+        s=s+" ";
+      }
+      return s;
+
+    },
 
     saveTable() {
       if (this.TableName == "") {
@@ -632,17 +640,36 @@ export default {
         const tb = this.currentTable.item(0).item(1);
         let uniqueArr = [];
         for (let i = 0; i < this.tableData.length; i++) {
+         
           const row = this.tableData[i];
-          tableBody = tableBody + "  " + row.Column + "  " + row.DataType.toLowerCase() + "  "
-
+         let tempHeader =  "  " + row.Column + "  " + row.DataType.toLowerCase() + "  "
+         let temp = tempHeader;
           if (row.PK) {
-            tableBody = tableBody + " PK "
+            temp = temp + " PK "
           }
           if (row.Comment != "") {
-            tableBody = tableBody + row.Comment + "  \n";
+            const cLength = row.Comment.length;
+            if(cLength>30){
+              const times = parseInt(cLength/30);
+              for(let j=0;j<=times;j++){
+                if(j==times){
+                  temp = temp +row.Comment.substring(j*30)+" \n\n";
+                }else{
+                  temp = temp + row.Comment.substring(j*30,(j+1)*30) + "  \n"+this.buildNumberSpace(tempHeader.length*1.5);
+                }
+               
+              }
+
+
+            
+            }else{
+              temp = temp + row.Comment + "  \n";
+            }
+            
           } else {
-            tableBody = tableBody + "  \n";
+            temp = temp + "  \n";
           }
+          tableBody = tableBody+temp;
 
 
           sql = sql + "    " + row.Column + "    " + row.DataType.toLowerCase() + "     ";
@@ -698,7 +725,7 @@ export default {
       editorCanvas.remove(editorCanvas.getActiveObject());
       this.currentTable = newGroup;
       this.currentTable.data = { "sql": sql, "Column": this.tableData, "Schema": this.Schema };
-      ths.save(null,false);
+      this.save(null,false);
 
       // let maxW= th.getScaledWidth();
       // let tfw = tf.getScaledWidth();
@@ -910,7 +937,10 @@ export default {
             repeat: 'repeat',
           }, editorCanvas.renderAll.bind(editorCanvas));
         if (json) {
-          editorCanvas.loadFromJSON(json, editorCanvas.renderAll.bind(editorCanvas));
+          editorCanvas.loadFromJSON(json, function(){
+          editorCanvas.renderAll.bind(editorCanvas);
+          that.addGroupKeyDown();
+        });
         }
         return;
       } else {
