@@ -41,11 +41,11 @@ import useClipboard from 'vue-clipboard3';
         <el-button type="primary" @click="deleteUndo()">delete undo</el-button>
 
       </div>
-      <div ><el-input type="number" v-model="canvasWH.w"   @blur="cwInput"></el-input></div>
+      <div style="width:5rem" ><el-input type="number" v-model="canvasWH.w"   @blur="cwInput"></el-input></div>
       <div> <el-icon style="vertical-align: middle;margin-top: 0.1rem;" color="black" size="20">
               <Close />
             </el-icon></div>
-       <div style="padding-right: 0.5rem;"><el-input type="number" v-model="canvasWH.h"   @blur="chInput"></el-input></div> 
+       <div style="padding-right: 0.5rem;width:5rem"><el-input type="number" v-model="canvasWH.h"   @blur="chInput"></el-input></div> 
     </div>
     <div style="width: 100%;height: 2rem;"></div>
     <div class="row-flex">
