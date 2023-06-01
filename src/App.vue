@@ -905,14 +905,14 @@ export default {
       let that = this;
       const json = store.get(space + "-id");
       if (editorCanvas != null) {
-        if (json) {
-          editorCanvas.setBackgroundColor({
+        editorCanvas.setBackgroundColor({
             source: "images/canvas_bg.jpg",
             repeat: 'repeat',
           }, editorCanvas.renderAll.bind(editorCanvas));
+        if (json) {
           editorCanvas.loadFromJSON(json, editorCanvas.renderAll.bind(editorCanvas));
-          return;
         }
+        return;
       } else {
         editorCanvas = new fabric.Canvas("canvas");
         editorCanvas.setBackgroundColor({
