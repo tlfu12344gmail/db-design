@@ -6,14 +6,14 @@
 npm install -g cnpm --registry=https://registry.npmmirror.com
 ```
 
-# local start
+## local start
 
 1. cnpm install
 2. npm run electron:serve
 
-# effect picture
+## effect picture
 ![main.png](./main.png)
 ![table.png](./table.png)
 
-# Licence
+## Licence
 MIT
