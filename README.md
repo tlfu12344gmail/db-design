@@ -15,5 +15,8 @@ npm install -g cnpm --registry=https://registry.npmmirror.com
 ![main.png](./main.png)
 ![table.png](./table.png)
 
+## contact
+![qrconde.jpg](./qrcode.jpg)
+
 ## Licence
 MIT
