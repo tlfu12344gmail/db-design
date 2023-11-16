@@ -695,16 +695,18 @@ export default {
           if (row.UQ) {
             uniqueArr.push(row);
           }
+          console.log(row);
 
-          if (row.Default != "") {
-            if (row.DataType.indexOf("INT") > -1) {
+          if (row.Default) {
+            const tempDataType = row.DataType;
+            if (tempDataType.indexOf("INT") > -1) {
               sql = sql + " default " + row.Default;
-            } else if (row.DataType.indexOf("CHAR") > -1 || row.DataType.indexOf("TEXT") > -1) {
+            } else if (tempDataType.indexOf("CHAR") > -1 || tempDataType.indexOf("TEXT") > -1) {
               sql = sql + " default " + "'" + row.Default + "'";
             }
           }
 
-          if (row.TableComment != "") {
+          if (row.Comment != "") {
             sql = sql + " comment " + "'" + row.Comment + "'"
           }
           sql = sql + ",\n"
