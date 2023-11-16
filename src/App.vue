@@ -695,7 +695,6 @@ export default {
           if (row.UQ) {
             uniqueArr.push(row);
           }
-          console.log(row);
 
           if (row.Default) {
             const tempDataType = row.DataType;
