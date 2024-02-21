@@ -460,7 +460,7 @@ export default {
       if (!activeObj) {
         return;
       }
-      let data = activeObj.data;
+      let data =JSON.parse(JSON.stringify(activeObj.data));
       type = activeObj.name;
       activeObj.clone(function (cloned) {
         _self.paste(cloned, type, data);
