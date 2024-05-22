@@ -166,8 +166,12 @@ import useClipboard from 'vue-clipboard3';
               </template>
             </el-table-column>
 
-            <el-table-column fixed="right" label="Operations" width="140">
+            <el-table-column fixed="right" label="Operations" width="160">
               <template #default="scope">
+                <el-icon style="vertical-align: middle;margin-right: 1rem;" color="blue" size="20"
+                  @click="copyRow(scope.$index)">
+                  <DocumentAdd />
+                </el-icon>
                 <el-icon style="vertical-align: middle;margin-right: 1rem;" color="red" size="20"
                   @click="deleteRow(scope.$index)">
                   <Delete />
@@ -546,6 +550,7 @@ export default {
         this.save(currentSpace);
       }
       editorCanvas.clear();
+      editorCanvas.off();
       currentSpace = selectId;
       this.initeditorCanvas(currentSpace);
       this.TableName = "";
@@ -586,6 +591,13 @@ export default {
         this.$refs.table.setScrollTop(1000);
       })
 
+    },
+    copyRow(index) {
+      let data =JSON.parse(JSON.stringify(this.tableData[index]));
+      this.tableData.splice(index+1,0,data);
+      nextTick(() => {
+        this.$refs.table.setScrollTop(1000);
+      })
     },
     deleteRow(index) {
       this.tableData.splice(index, 1);
